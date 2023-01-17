@@ -9,14 +9,24 @@ return require('packer').startup(function(use)
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
-            'neovim/nvim-lspconfig', 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', -- Autocompletion
-            'hrsh7th/nvim-cmp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-nvim-lua', 'saadparwaiz1/cmp_luasnip', -- Snippets
-            'L3MON4D3/LuaSnip', 'rafamadriz/friendly-snippets', -- Snippet collection (Optional)
+            'neovim/nvim-lspconfig', -- Collection of configurations for built-in LSP client
+            'williamboman/mason.nvim', -- Portable package manager for Neovim
+            'williamboman/mason-lspconfig.nvim', -- Bridges mason.nvim with the lspconfig plugin
+            -- Autocompletion
+            'hrsh7th/nvim-cmp', -- Autocompletion plugin
+            'hrsh7th/cmp-buffer', -- Buffer source for nvim-cmp
+            'hrsh7th/cmp-path', -- Path source for nvim-cmp
+            'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+            'hrsh7th/cmp-nvim-lua', -- Lua source for nvim-cmp
+            'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
+            -- Snippets
+            'L3MON4D3/LuaSnip', -- Snippets plugin
+            'rafamadriz/friendly-snippets', -- Snippet collection (Optional)
             -- UI
             'j-hui/fidget.nvim', -- Useful status updates for LSP
-            'onsails/lspkind-nvim', 'ray-x/lsp_signature.nvim', 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
-
+            'onsails/lspkind-nvim', -- Pictograms for LSP
+            'ray-x/lsp_signature.nvim', -- Signature help for LSP
+            'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', -- Toggle LSP diagnostics
             'folke/neodev.nvim' -- Additional lua config, makes nvim stuff amazing
         }
     }
@@ -30,15 +40,12 @@ return require('packer').startup(function(use)
 
     use {
         'p00f/nvim-ts-rainbow', -- Rainbow parentheses
-
-        -- Additional text objects via treesitter-
-        'nvim-treesitter/nvim-treesitter-textobjects',
+        'nvim-treesitter/nvim-treesitter-textobjects', -- Additional text objects via treesitter-
         'kana/vim-textobj-line', -- Select line
         'kana/vim-textobj-entire', -- Select entire buffer
         'kana/vim-textobj-indent', -- "ii" to select current indent level
         'kana/vim-textobj-user', -- Text object plugin (required by others)
         'wellle/targets.vim', -- Additional text objects
-
         after = 'nvim-treesitter'
     }
 
@@ -120,6 +127,13 @@ return require('packer').startup(function(use)
 
     -- Writing
     use 'vimwiki/vimwiki' -- Personal wiki for all your notes
-    use('iamcco/markdown-preview.nvim', {run = 'cd app && yarn install'}) -- Markdown preview
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = "cd app && npm install",
+        setup = function()
+            vim.g.mkdp_filetypes = {"markdown"}
+        end,
+        ft = {"markdown"}
+    })
 
 end)
