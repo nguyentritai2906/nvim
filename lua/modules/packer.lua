@@ -63,16 +63,15 @@ return require('packer').startup(function(use)
     }
     use('hanschen/vim-ipython-cell', {ft = 'python'})
     use 'chipsenkbeil/distant.nvim'
-    -- use 'github/copilot.vim'
+
     use {
-      "zbirenbaum/copilot.lua",
-      cmd = "Copilot",
-      event = "VimEnter",
-      config = function()
-        vim.defer_fn(function()
-          require("copilot").setup()
-        end, 100)
-      end,
+        "zbirenbaum/copilot.lua",
+        after = "nvim-lspconfig",
+        config = function()
+            vim.defer_fn(function()
+                require("copilot").setup()
+            end, 100)
+        end,
     }
 
     -- Debuger

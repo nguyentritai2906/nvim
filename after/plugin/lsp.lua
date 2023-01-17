@@ -146,7 +146,6 @@ local servers = {
     html = {},
     cssls = {},
     tailwindcss = {},
-    gopls = {},
     sumneko_lua = {
         Lua = {workspace = {checkThirdParty = false}, telemetry = {enable = false}, diagnostics = {globals = {'vim'}}}
     }
