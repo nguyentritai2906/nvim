@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # Check if neovim is >= 0.8
-if [ "$(nvim --version | head -n 1 | cut -d ' ' -f 2 | cut -d '.' -f 1)" -lt 8 ]; then
+if [ "$(nvim --version | head -n 1 | cut -d ' ' -f 2 | cut -d '.' -f 2)" -lt 8 ]; then
     echo "Neovim >= 0.8 is required"
     exit 1
 fi
-
 
 # Ensure npm installed
 if ! command -v npm &> /dev/null
