@@ -38,16 +38,29 @@ return require('packer').startup(function(use)
         end
     }
 
+    -- Text objects
     use {
-        'p00f/nvim-ts-rainbow', -- Rainbow parentheses
         'nvim-treesitter/nvim-treesitter-textobjects', -- Additional text objects via treesitter-
-        'kana/vim-textobj-line', -- Select line
-        'kana/vim-textobj-entire', -- Select entire buffer
-        'kana/vim-textobj-indent', -- "ii" to select current indent level
-        'kana/vim-textobj-user', -- Text object plugin (required by others)
-        'wellle/targets.vim', -- Additional text objects
-        after = 'nvim-treesitter'
+        after = 'nvim-treesitter',
+        requires = 'nvim-treesitter/nvim-treesitter'
     }
+    use 'kana/vim-textobj-user' -- Text object plugin (required by others)
+    use {
+        'kana/vim-textobj-line', -- Select line
+        after = 'vim-textobj-user',
+        requires = 'kana/vim-textobj-user'
+    }
+    use {
+        'kana/vim-textobj-entire', -- Select entire buffer
+        after = 'vim-textobj-user',
+        requires = 'kana/vim-textobj-user'
+    }
+    use {
+        'kana/vim-textobj-indent', -- "ii" to select current indent level
+        after = 'vim-textobj-user',
+        requires = 'kana/vim-textobj-user'
+    }
+    use 'wellle/targets.vim' -- Additional text objects
 
     -- Git
     use 'lewis6991/gitsigns.nvim'
@@ -57,23 +70,15 @@ return require('packer').startup(function(use)
     -- Dev
     use {
         'glacambre/firenvim',
-        'mjbrownie/swapit', -- Swap True-False
         run = function()
             vim.fn['firenvim#install'](0)
         end
     }
+    use 'mjbrownie/swapit' -- Swap True-False
     use('hanschen/vim-ipython-cell', {ft = 'python'})
     use 'chipsenkbeil/distant.nvim'
 
-    use {
-        "zbirenbaum/copilot.lua",
-        after = "nvim-lspconfig",
-        config = function()
-            vim.defer_fn(function()
-                require("copilot").setup()
-            end, 100)
-        end
-    }
+    use {"zbirenbaum/copilot.lua", after = "nvim-lspconfig"}
 
     -- Debuger
     use {'mfussenegger/nvim-dap', 'theHamsta/nvim-dap-virtual-text', 'rcarriga/nvim-dap-ui'}
@@ -81,10 +86,10 @@ return require('packer').startup(function(use)
     -- Fuzzy finder - Faster than Telescope - Requires silversearcher-ag
     use {
         'junegunn/fzf',
-        'junegunn/fzf.vim',
         run = function()
             vim.fn['fzf#install']()
-        end
+        end,
+        requires = 'junegunn/fzf.vim'
     }
 
     -- Make life easier
@@ -115,6 +120,11 @@ return require('packer').startup(function(use)
     use 'mhinz/vim-startify' -- Fancy start screen
     use 'ryanoasis/vim-devicons' -- Icons
     use 'nvim-tree/nvim-web-devicons'
+    use {
+        'p00f/nvim-ts-rainbow', -- Rainbow parentheses
+        after = 'nvim-treesitter',
+        requires = 'nvim-treesitter/nvim-treesitter'
+    }
 
     -- Colorschemes
     use {"catppuccin/nvim", as = "catppuccin"} -- Catppuccin
