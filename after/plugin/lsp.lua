@@ -135,17 +135,19 @@ vim.diagnostic.config({virtual_text = true})
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 local servers = {
-    tsserver = {},
-    eslint = {},
-    pyright = {},
     bashls = {},
-    vimls = {},
-    jsonls = {},
-    yamlls = {},
-    dockerls = {},
-    html = {},
     cssls = {},
+    dockerls = {},
+    efm = {},
+    eslint = {},
+    gopls = {},
+    html = {},
+    jsonls = {},
+    pyright = {},
     tailwindcss = {},
+    tsserver = {},
+    vimls = {},
+    yamlls = {},
     sumneko_lua = {
         Lua = {workspace = {checkThirdParty = false}, telemetry = {enable = false}, diagnostics = {globals = {'vim'}}}
     }
