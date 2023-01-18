@@ -27,6 +27,12 @@ sudo apt install nodejs
 sudo apt install npm
 ```
 
+- [Golang](https://golang.org/) (>= 1.13.0)
+
+```bash
+sudo apt install golang
+```
+
 ## Installation
 
 Clone this repo to ~/.config/nvim
