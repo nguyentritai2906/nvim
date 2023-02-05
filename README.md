@@ -43,6 +43,12 @@ sudo apt update
 sudo apt install golang
 ```
 
+- [Patched Font](https://www.nerdfonts.com/) (Optional)
+
+```bash
+./font.sh
+```
+
 ## Installation
 
 Clone this repo to ~/.config/nvim
