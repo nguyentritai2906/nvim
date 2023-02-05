@@ -136,7 +136,19 @@ return require('packer').startup(function(use)
     use 'christoomey/vim-tmux-navigator' -- Seamless navigation between tmux panes and vim splits
 
     -- Writing
-    use 'vimwiki/vimwiki' -- Personal wiki for all your notes
+    use({
+        'vimwiki/vimwiki', -- Personal wiki for all your notes
+        setup = function()
+            vim.g.vimwiki_list = {
+                {path = '$HOME/Documents/notes/', syntax = 'markdown', ext = '.md', links_space_char = '-'}
+            }
+            vim.g.vimwiki_auto_header = 1
+            -- vim.g.vimwiki_folding = 'custom'
+            vim.g.vimwiki_table_mappings = 0
+            vim.g.vimwiki_filetypes = {'markdown'}
+            vim.g.vimwiki_global_ext = 0
+        end
+    })
     use({
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
