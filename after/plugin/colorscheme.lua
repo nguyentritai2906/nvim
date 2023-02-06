@@ -58,4 +58,5 @@ if vim.fn.has('mac') == 1 then
 else
     vim.g.catppuccin_flavour = "macchiato"
     vim.cmd [[colorscheme catppuccin]]
+    vim.cmd [[hi Normal guibg=#22273E ctermbg=NONE]]
 end
