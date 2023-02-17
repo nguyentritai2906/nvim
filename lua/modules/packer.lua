@@ -20,8 +20,8 @@ return require('packer').startup(function(use)
             'hrsh7th/cmp-nvim-lua', -- Lua source for nvim-cmp
             'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
             -- Snippets
-            'L3MON4D3/LuaSnip', -- Snippets plugin
-            'rafamadriz/friendly-snippets', -- Snippet collection (Optional)
+            'L3MON4D3/LuaSnip', -- Snippet engine plugin
+            'honza/vim-snippets', -- Snippet collection (Optional)
             -- UI
             'j-hui/fidget.nvim', -- Useful status updates for LSP
             'onsails/lspkind-nvim', -- Pictograms for LSP
