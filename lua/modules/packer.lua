@@ -81,7 +81,10 @@ return require('packer').startup(function(use)
     use {"zbirenbaum/copilot.lua", after = "nvim-lspconfig"}
 
     -- Debuger
-    use {'mfussenegger/nvim-dap', 'theHamsta/nvim-dap-virtual-text', 'rcarriga/nvim-dap-ui'}
+    use 'mfussenegger/nvim-dap'
+    use 'mfussenegger/nvim-dap-python'
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'rcarriga/nvim-dap-ui'
 
     -- Fuzzy finder - Faster than Telescope - Requires silversearcher-ag
     use {
