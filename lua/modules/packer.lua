@@ -96,7 +96,10 @@ return require('packer').startup(function(use)
     }
 
     -- Make life easier
-    use 'nvim-tree/nvim-tree.lua' -- File explorer
+    use {
+        'nvim-tree/nvim-tree.lua', -- File explorer
+        requires = 'nvim-tree/nvim-web-devicons'
+    }
     use 'simnalamburt/vim-mundo' -- Undo tree
     use 'windwp/nvim-autopairs' -- Auto close brackets
     use 'tpope/vim-surround' -- Surround text objects
@@ -122,7 +125,6 @@ return require('packer').startup(function(use)
     use 'kshenoy/vim-signature' -- Place, toggle and display marks
     use 'mhinz/vim-startify' -- Fancy start screen
     use 'ryanoasis/vim-devicons' -- Icons
-    use 'nvim-tree/nvim-web-devicons'
     use {
         'p00f/nvim-ts-rainbow', -- Rainbow parentheses
         after = 'nvim-treesitter',
