@@ -39,12 +39,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Write with no autocmds
 command("W", 'noa w', {})
-
--- Better alternative for autochdir
--- autocmd BufEnter * silent! lcd %:p:h
-function _G.ChangeDirCurBuf()
-    vim.cmd('lcd %:p:h')
-    vim.cmd('pwd')
-end
-
-vim.keymap.set('n', '<Leader>lcd', ':call ChangeDirCurBuf()<CR>', {silent = true})
