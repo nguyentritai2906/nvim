@@ -114,6 +114,7 @@ return require('packer').startup(function(use)
     use 'tpope/vim-obsession' -- Session management
     use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
     use 'preservim/nerdcommenter' -- <leader>cc (or ci, cu) to comment visual regions/lines
+    use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'} -- Fold
 
     -- UI
     use 'hoob3rt/lualine.nvim' -- Statusline
