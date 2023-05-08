@@ -163,5 +163,6 @@ return require('packer').startup(function(use)
         end,
         ft = {"markdown"}
     })
+    use({'preservim/vim-markdown'})
 
 end)
