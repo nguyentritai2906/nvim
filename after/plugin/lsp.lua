@@ -218,7 +218,6 @@ mason_lspconfig.setup_handlers {
 
 -- Csharp
 local pid = vim.fn.getpid()
-local omnisharp_bin = "/Users/mater/.local/share/nvim/mason/packages/omnisharp/omnisharp"
 require'lspconfig'.omnisharp.setup({
     handlers = {
         ["textDocument/definition"] = require('omnisharp_extended').handler,
