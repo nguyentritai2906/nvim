@@ -22,6 +22,7 @@ local function on_attach(client, bufnr)
     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
     buf_set_keymap('n', '<space>lk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
@@ -47,18 +48,27 @@ local function on_attach(client, bufnr)
     end
 
     -- Only EMF has format capabilities
-    if client.name ~= 'efm' then client.server_capabilities.documentFormattingProvider = false end
+    if client.name ~= 'efm' then
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentFormattingRangeProvider = false
+    end
 
     if client.name == 'pyright' then client.server_capabilities.signatureHelpProvider = false end
+
+    if client.name == 'ruff_lsp' then
+        -- client.server_capabilities.renameProvider = false
+        client.server_capabilities.hoverProvider = false
+    end
 
     if client.name == 'pylsp' then
         client.server_capabilities.renameProvider = false
         client.server_capabilities.hoverProvider = false
     end
 
-    -- if client.server_capabilities.documentFormattingProvider then
-    --     vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
-    -- end
+    -- Somehow really slow
+    if client.server_capabilities.documentFormattingProvider then
+        vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+    end
 
     require"lsp_signature".on_attach()
 end
@@ -76,8 +86,8 @@ local has_words_before = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-lsp.setup_nvim_cmp({
-    preselect = 'none',
+cmp.setup({
+    preselect = 'None',
     completion = {completeopt = 'menu,menuone,noinsert,noselect,preview'},
     snippet = {
         expand = function(args)
@@ -122,7 +132,16 @@ lsp.setup_nvim_cmp({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort()
     }),
-    formatting = {format = lspkind.cmp_format({with_text = true, maxwidth = 50})}
+    formatting = {
+        format = lspkind.cmp_format({
+            mode = 'symbol', -- show only symbol annotations
+            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            -- can also be a function to dynamically calculate max width such as
+            -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+        })
+  }
 })
 
 lsp.set_preferences({
@@ -137,7 +156,7 @@ lsp.set_preferences({
 })
 
 -- Configure lua language server for neovim
-lsp.nvim_workspace()
+-- lsp.nvim_workspace()
 
 lsp.on_attach = on_attach
 lsp.setup()
@@ -158,9 +177,11 @@ local servers = {
     jsonls = {},
     -- jedi_language_server = {},
     pyright = {
+        disableOrganizeImports = true,
         flags = {debounce_text_changes = 300},
         python = {
             analysis = {
+                -- ignore = {"*"},
                 autoSearchPaths = true,
                 diagnosticMode = "openFilesOnly",
                 typeCheckingMode = "basic",
@@ -269,6 +290,7 @@ local shellcheck = {
 local shfmt = {formatCommand = 'shfmt -ci -s -bn', formatStdin = true}
 local rustfmt = {formatCommand = "rustfmt", formatStdin = true}
 local root_markers = {".zshrc", ".git/"}
+local ruff = {formatCommand = "ruff format --stdin-filename ${INPUT}", formatStdin = true}
 
 require"lspconfig".efm.setup {
     on_attach = on_attach,
@@ -285,7 +307,8 @@ require"lspconfig".efm.setup {
         rootMarkers = {".git/"},
         languages = {
             lua = {luaFormat},
-            python = {autoflake, isort, flake8, black},
+            -- python = {autoflake, isort, flake8, black, ruff},
+            python = {autoflake, isort, ruff},
             javascriptreact = {prettier, eslint},
             javascript = {prettier, eslint},
             sh = {shfmt, shellcheck},
