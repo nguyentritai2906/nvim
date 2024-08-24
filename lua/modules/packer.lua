@@ -133,7 +133,7 @@ return require('packer').startup(function(use)
     use 'mhinz/vim-startify' -- Fancy start screen
     use 'ryanoasis/vim-devicons' -- Icons
     use {
-        'p00f/nvim-ts-rainbow', -- Rainbow parentheses
+        'hiphish/rainbow-delimiters.nvim', -- Rainbow parentheses
         after = 'nvim-treesitter',
         requires = 'nvim-treesitter/nvim-treesitter'
     }
