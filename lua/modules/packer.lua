@@ -25,7 +25,6 @@ return require('packer').startup(function(use)
             -- UI
             'onsails/lspkind-nvim', -- Pictograms for LSP
             'ray-x/lsp_signature.nvim', -- Signature help for LSP
-            'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', -- Toggle LSP diagnostics
             'folke/neodev.nvim' -- Additional lua config, makes nvim stuff amazing
         }
     }
@@ -78,7 +77,6 @@ return require('packer').startup(function(use)
     use {'hanschen/vim-ipython-cell', requires = 'jpalardy/vim-slime'}
 
     use {"zbirenbaum/copilot.lua", after = "nvim-lspconfig"}
-    use {"Hoffs/omnisharp-extended-lsp.nvim"}
 
     -- Debuger
     use {
@@ -170,5 +168,7 @@ return require('packer').startup(function(use)
         ft = {"markdown"}
     })
     use({'preservim/vim-markdown'})
+
+    use({'Hoffs/omnisharp-extended-lsp.nvim'})
 
 end)
