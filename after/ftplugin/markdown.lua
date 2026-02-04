@@ -14,7 +14,7 @@ vim.cmd [[
 vim.opt.autoindent = true
 vim.opt.linebreak = true
 vim.opt_local.conceallevel = 2
-vim.opt.textwidth = 120
+vim.opt.textwidth = 0
 vim.opt.wrap = true
 
 -- -- @TODOUA:
